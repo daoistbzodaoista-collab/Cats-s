@@ -122,6 +122,8 @@ function buildFurTextures(){
   return {map,bump};
 }
 function buildRoom(){
+  // Window dimensions must exist before the wall panels use wx/ww.
+  const wx=-2.4,wz=-4.30,wy=2.55,ww=2.35,wh=2.05;
   const wood=buildFloorTexture(), fabric=buildFabricTexture(), rugTex=buildRugTexture();
   const floorMat=new THREE.MeshStandardMaterial({map:wood,roughness:.78,bumpMap:wood,bumpScale:.035});
   const floor=addMesh(new THREE.PlaneGeometry(16,13),floorMat,scene,[0,-.06,-.2]);floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;floor.castShadow=false;world.floor=floor;
@@ -135,7 +137,6 @@ function buildRoom(){
   const leftWall=box(scene,'left wall',[.12,4.5,8.7],[-5,2.2,-.1],sideMat,.02);leftWall.castShadow=false;
   const baseMat=mat('#827765',.85);box(scene,'back skirting',[9.9,.15,.12],[0,.04,-4.32],baseMat,.02);box(scene,'left skirting',[.12,.15,8.4],[-4.92,.04,-.05],baseMat,.02);
   // Window and sill
-  const wx=-2.4,wz=-4.30,wy=2.55,ww=2.35,wh=2.05;
   const frameMat=mat('#eee8d7',.37), glassMat=new THREE.MeshPhysicalMaterial({color:'#c7dce0',roughness:.12,metalness:.05,transmission:.12,transparent:true,opacity:.58,side:THREE.DoubleSide});
   box(scene,'window surround',[ww+.22,wh+.22,.14],[wx,wy,wz+.08],mat('#827e6e',.8),.025);
   box(scene,'window glass',[ww,wh,.035],[wx,wy,wz+.02],glassMat,.01);

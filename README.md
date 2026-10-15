@@ -1,50 +1,27 @@
-# CAT — Living Room (Android + modo sin conexión)
+# CAT — Living Room
 
-Simulador felino 3D para navegador. Está hecho con HTML5, JavaScript y Three.js. Esta edición incluye un service worker que guarda la página y las dos dependencias JavaScript necesarias para volver a jugar sin Internet.
+Simulador felino 3D para navegador con HTML, CSS, JavaScript y Three.js.
 
-## Importante: primera carga
+## Windows
+1. Descomprime la carpeta.
+2. Haz doble clic en `INICIAR_WINDOWS.bat` (requiere Python 3 instalado).
+3. Abre `http://localhost:8000` si el navegador no se abre automáticamente.
 
-**No se puede preparar la caché sin conexión desde cero si nunca hubo Internet.** Para usarlo offline en Chrome Android, primero hay que publicar el proyecto en una dirección HTTPS y abrirlo una vez conectado. Después hay que esperar a que termine la caché y recargar la página todavía conectado. Entonces se puede activar el modo avión y abrirlo de nuevo desde Chrome.
+Alternativa: abre una terminal en esta carpeta y ejecuta `py -m http.server 8000`.
 
-El navegador no permite instalar un service worker desde `file://` ni desde una dirección HTTP cualquiera; necesita HTTPS (GitHub Pages sirve).
+## GitHub Pages
+Sube `index.html`, `sw.js` y `manifest.webmanifest` a la raíz del repositorio. En Settings → Pages selecciona Deploy from a branch, `main`, `/(root)`. Abre la URL HTTPS publicada.
 
-## Publicarlo gratis desde Android usando GitHub Pages
-
-1. Con Internet, abre https://github.com/ y crea una cuenta o inicia sesión.
-2. Crea un repositorio nuevo, por ejemplo `cat-living-room`. Si aparece la opción de visibilidad, elige **Public**.
-3. En el repositorio, usa **Add file → Upload files** y sube estos cuatro archivos desde la carpeta del proyecto: `index.html`, `sw.js`, `manifest.webmanifest` y `README.md`. No subas solo el ZIP: hay que subir los archivos extraídos.
-4. Abre **Settings → Pages**.
-5. En **Build and deployment**, elige **Deploy from a branch**; selecciona la rama `main` y la carpeta `/ (root)`, y guarda.
-6. Espera a que GitHub Pages publique el sitio. La dirección será parecida a `https://TU-USUARIO.github.io/cat-living-room/` (usa la URL exacta que muestre GitHub).
-7. Abre esa URL en Chrome Android con Internet. Espera a que termine de cargar el gato y la habitación.
-8. Espera unos segundos más y recarga la página una vez mientras sigues conectado. El service worker se instala en segundo plano y almacena `index.html`, Three.js y `RoundedBoxGeometry`.
-9. En Chrome, abre el menú ⋮ → **Añadir a pantalla de inicio** si quieres un acceso directo. Es opcional; no es necesario para el modo sin conexión.
-10. Activa el modo avión y vuelve a abrir la misma dirección desde Chrome o desde el acceso directo. Si no funciona a la primera, vuelve a conectarte, abre la página y espera a que finalice la carga antes de probar otra vez.
-
-## Uso local en PC
-
-El service worker también funciona en `localhost`:
-
-- Windows: `py -m http.server 8000`
-- macOS/Linux: `python3 -m http.server 8000`
-
-Abre `http://localhost:8000` en el ordenador. En la primera visita necesita Internet para descargar y almacenar las dependencias.
+## Dependencias
+Three.js 0.186.1 y RoundedBoxGeometry se cargan desde jsDelivr. Necesita Internet para la primera carga; el service worker intenta guardar el shell de la app y las dependencias solicitadas para reutilizarlas sin conexión. La disponibilidad offline depende de que la carga inicial se complete y el navegador conserve su caché.
 
 ## Controles
+- Arrastrar ratón/dedo: orbitar cámara.
+- Rueda/pellizco: zoom.
+- Clic/toque en el gato: llamar su atención.
+- Arrastrar el ovillo: jugar.
+- Botones: llamar, acariciar, jugar, alimentar, vida libre y descansar.
+- H: ocultar/mostrar interfaz; Espacio: jugar; C: llamar; P: acariciar.
 
-- Arrastrar un dedo: girar la cámara.
-- Pellizcar con dos dedos: zoom.
-- Tocar al gato: llamar su atención.
-- Arrastrar el ovillo: moverlo para que lo persiga.
-- **Llamar**, **Acariciar**, **Jugar**, **Dar comida**, **Descansar** y **Vida libre**: acciones del panel.
-- Botón `◈`: alterna calidad gráfica.
-- Botón `⌗`: oculta o muestra la interfaz.
-
-## Dependencias y limitaciones
-
-- Three.js 0.186.1 desde jsDelivr, almacenado en caché para uso posterior offline.
-- `RoundedBoxGeometry` de los ejemplos de Three.js, también almacenado en caché.
-- No usa modelos ni imágenes externos; el escenario y el gato son geometría procedural.
-- Los sonidos se sintetizan con Web Audio; no son grabaciones reales.
-- El modo sin conexión depende de que Chrome no borre los datos del sitio. Borrar datos de navegación/caché puede exigir conectarse otra vez.
-- El gato es procedural, no un modelo fotorrealista escaneado. El rendimiento depende del GPU y del soporte WebGL del teléfono.
+## Limitaciones
+El gato es una composición procedural, no un modelo escaneado ni un rig profesional. Los sonidos se sintetizan con Web Audio API. El juego no se ha verificado visualmente en todos los navegadores/GPU.
