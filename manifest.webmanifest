@@ -1,0 +1,11 @@
+{
+  "name": "CAT — Living Room",
+  "short_name": "CAT Sim",
+  "description": "Simulador felino 3D interactivo",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#171b1b",
+  "theme_color": "#171b1b",
+  "orientation": "landscape"
+}
